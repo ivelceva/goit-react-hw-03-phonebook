@@ -57,19 +57,6 @@ export class App extends Component {
     return nameLow.indexOf(filterLow) >= 0;
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.contacts !== prevState.contacts) {
-  //     localStorage.setItem('phonebook', JSON.stringify(this.state.contacts));
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   const book = localStorage.getItem('phonebook');
-  //   if (book) {
-  //     const parsePhonebook = JSON.parse(book);
-  //     this.setState({ contacts: parsePhonebook });
-  //   }
-  // }
   render() {
     const { contacts, filter } = this.state;
     const contactSeach = contacts.filter(user =>
