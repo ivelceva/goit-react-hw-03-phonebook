@@ -19,7 +19,7 @@ export class ContactForm extends Component {
     event.preventDefault();
     let result = this.props.namesContact.includes(this.state.name);
     if (result) {
-      alert(`${result.name} is already in contacts`);
+      alert(`${this.state.name} is already in contacts`);
       this.setState({
         name: '',
       });
