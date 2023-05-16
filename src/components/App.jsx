@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { ContactForm } from './contactForm/ContactForm';
 import { Filter } from './filter/Filter';
 import { ContactList } from './contactList/ContactList';
-//import { nanoid } from 'nanoid';
+import { LOCALSTORAGE_KEY } from 'components/constants';
 import css from './App.module.css';
 
 export class App extends Component {
@@ -16,12 +16,20 @@ export class App extends Component {
     filter: '',
   };
 
-  // addContact = userData => {
-  //   const newUser = { ...userData, id: nanoid() };
-  //   this.setState(prevstate => {
-  //     return { contacts: [...prevstate.contacts, newUser] };
-  //   });
-  // };
+  componentDidMount() {
+    const savedContacts = localStorage.getItem(LOCALSTORAGE_KEY);
+    if (savedContacts !== null) {
+      this.setState({ contacts: JSON.parse(savedContacts) });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contact !== this.state.contacts) {
+      localStorage.setItem(
+        LOCALSTORAGE_KEY,
+        JSON.stringify(this.state.contacts)
+      );
+    }
+  }
 
   addContact = newContact => {
     const normalizedFind = newContact.name.toLowerCase();
@@ -54,6 +62,19 @@ export class App extends Component {
     return nameLow.indexOf(filterLow) >= 0;
   };
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.contacts !== prevState.contacts) {
+  //     localStorage.setItem('phonebook', JSON.stringify(this.state.contacts));
+  //   }
+  // }
+
+  // componentDidMount() {
+  //   const book = localStorage.getItem('phonebook');
+  //   if (book) {
+  //     const parsePhonebook = JSON.parse(book);
+  //     this.setState({ contacts: parsePhonebook });
+  //   }
+  // }
   render() {
     const { contacts, filter } = this.state;
     const contactSeach = contacts.filter(user =>

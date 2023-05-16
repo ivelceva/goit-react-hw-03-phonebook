@@ -73,4 +73,5 @@ export class ContactForm extends Component {
 
 ContactForm.propTypes = {
   namesContact: PropTypes.arrayOf(PropTypes.string.isRequired),
+  addContact: PropTypes.func.isRequired,
 };
